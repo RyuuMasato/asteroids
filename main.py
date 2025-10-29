@@ -1,8 +1,7 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
+import sys
 import pygame
 from constants import *
+from circleshape import CircleShape
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -39,7 +38,15 @@ def main():
         
         # update group (player and others in group)
         for sprite in updatable:
+            sprite: CircleShape
             sprite.update(dt)
+
+        # check for asteroid collisions with player
+        for asteroid in asteroids:
+            asteroid: Asteroid
+            if asteroid.colliding(player):
+                print("Game over!")
+                sys.exit()
 
         # draw black background
         black = pygame.Color(0, 0, 0, a=255)
@@ -47,6 +54,7 @@ def main():
 
         # draw group (player and others in group)
         for sprite in drawable:
+            sprite: CircleShape
             sprite.draw(screen)
 
         pygame.display.flip()
