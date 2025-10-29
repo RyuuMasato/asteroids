@@ -13,11 +13,18 @@ def main():
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     while True:
+        # check for exit event
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        # draw black background
         black = pygame.Color(0, 0, 0, a=255)
         screen.fill(black)
+
+        # draw player
+        
+
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
