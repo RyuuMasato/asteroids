@@ -4,6 +4,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     print("Starting Asteroids!")
@@ -14,12 +16,20 @@ def main():
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    # Create sprite groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     
-    # After changing a static field like containers, make sure to create all Player objects after the change. This way, they will be correctly added to the groups.
+    # Set static containers for game objects
+    # After changing a static field like containers, make sure to create all objects after the change. This way, they will be correctly added to the groups.
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+
+    # Object initialization
     player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
+    asteroid_field = AsteroidField()
 
     while True:
         # check for exit event
