@@ -44,9 +44,20 @@ def main():
             sprite: CircleShape
             sprite.update(dt)
 
+        
+
         # check for asteroid collisions with player
         for asteroid in asteroids:
             asteroid: Asteroid
+            
+            # check for shot collisions with asteroids
+            for shot in shots:
+                shot: Shot
+                # kill asteroid if shot colliding
+                if asteroid.colliding(shot):
+                    asteroid.kill()
+
+            # GAME OVER when player hit by asteroid
             if asteroid.colliding(player):
                 print("Game over!")
                 sys.exit()
